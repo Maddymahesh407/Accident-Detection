@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Detection</title>
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<main class="video-container">
+    <h2>Webcam – Accident Detection</h2>
+    <img src="/webcam_feed" class="preview" alt="Webcam Detection Feed">
+    <div class="button-group" style="justify-content: center;">
+        <button class="close-btn" onclick="closeWebcam()">
+            <span class="close-icon">✕</span>
+            <span class="close-text">Close</span>
+        </button>
+    </div>
+</main>
+
+<script>
+function closeWebcam() {
+    // Redirect to index page
+    window.location.href = '/';
+}
+</script>
+
+</body>
+</html>

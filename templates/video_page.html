@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Detection</title>
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<main class="video-container">
+    <h2>Uploaded Video – Detection Running</h2>
+
+    <div id="labelBox" class="label-box">
+        <span id="labelText">Processing...</span>
+        <span id="confText"></span>
+    </div>
+
+    <img src="/video_feed" class="preview" alt="Video Detection Feed">
+    <div class="button-group">
+        <button class="sos-btn" onclick="callEmergency()" onmouseover="animateSOS()">
+            <span class="sos-icon">🆘</span>
+            <span class="sos-text">SOS Emergency</span>
+        </button>
+        <button class="close-btn" onclick="closeVideo()">
+            <span class="close-icon">✕</span>
+            <span class="close-text">Close</span>
+        </button>
+    </div>
+</main>
+
+<script>
+function callEmergency() {
+    // Change this number to your local emergency number
+    // Common emergency numbers: 112 (Europe), 911 (USA), 100 (India), etc.
+    const emergencyNumber = "+918610230570"; // Change this to your country's emergency number
+    
+    // Create a phone call link
+    window.location.href = "tel:" + emergencyNumber;
+}
+
+let sosAnimated = false;
+
+function animateSOS() {
+    if (sosAnimated) return;
+    
+    const btn = document.querySelector('.sos-btn');
+    if (btn) {
+        sosAnimated = true;
+        btn.style.animation = 'pulse 0.6s ease-in-out';
+        setTimeout(() => {
+            btn.style.animation = '';
+            sosAnimated = false;
+        }, 600);
+    }
+}
+
+function closeVideo() {
+    // Redirect to index page
+    window.location.href = '/';
+}
+
+// Poll label every 500ms
+setInterval(() => {
+    fetch("/video_label")
+        .then(r => r.json())
+        .then(data => {
+            const labelEl = document.getElementById("labelText");
+            const confEl  = document.getElementById("confText");
+            const box     = document.getElementById("labelBox");
+
+            labelEl.textContent = data.label;
+            confEl.textContent  = data.conf ? `${(data.conf * 100).toFixed(1)}%` : "";
+
+            if (data.label === "Accident") {
+                box.style.background = "rgba(220, 38, 38, 0.85)";
+            } else {
+                box.style.background = "rgba(22, 163, 74, 0.85)";
+            }
+        });
+}, 500);
+</script>
+
+</body>
+</html>

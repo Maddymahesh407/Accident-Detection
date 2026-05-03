@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accident Detection System</title>
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<main class="container">
+
+    <h1>Accident Detection System</h1>
+
+    <button class="webcam-btn" onclick="location.href='/webcam'">
+        Start Webcam
+    </button>
+
+    <hr>
+
+    <h3>Upload Video</h3>
+
+    <input type="file" id="videoFile" accept="video/*" style="display:none">
+
+    <button class="upload-btn" onclick="openPicker()">Choose Video</button>
+
+    <div id="previewBox" class="preview-box" style="display:none;">
+        <video id="preview" controls></video>
+
+        <!-- Start detection button -->
+        <button class="detect-btn" onclick="startDetection()">Start Detection</button>
+
+        <!-- Close preview -->
+        <button class="close-preview-btn" onclick="closePreview()">Close Preview</button>
+    </div>
+
+</main>
+
+<script>
+function openPicker() {
+    document.getElementById("videoFile").click();
+}
+
+let selectedFile = null;
+let objectURL = null;
+
+document.getElementById("videoFile").addEventListener("change", function() {
+    selectedFile = this.files[0];
+    if (!selectedFile) return;
+
+    // Check if file is a video
+    if (!selectedFile.type.startsWith('video/')) {
+        alert('Please select a valid video file.');
+        this.value = '';
+        return;
+    }
+
+    // Revoke previous object URL if exists
+    if (objectURL) {
+        URL.revokeObjectURL(objectURL);
+    }
+
+    objectURL = URL.createObjectURL(selectedFile);
+    document.getElementById("previewBox").style.display = "block";
+    document.getElementById("preview").src = objectURL;
+});
+
+function closePreview() {
+    let preview = document.getElementById("preview");
+    if (preview) {
+        preview.pause();
+        preview.src = "";
+    }
+    
+    // Revoke object URL to prevent memory leak
+    if (objectURL) {
+        URL.revokeObjectURL(objectURL);
+        objectURL = null;
+    }
+    
+    selectedFile = null;
+    document.getElementById("previewBox").style.display = "none";
+    document.getElementById("videoFile").value = '';
+}
+
+function startDetection() {
+    if (!selectedFile) {
+        alert('Please select a video file first.');
+        return;
+    }
+
+    let form = new FormData();
+    form.append("video", selectedFile);
+
+    fetch("/upload_video", { method: "POST", body: form })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Upload failed');
+        }
+        return res.json();
+    })
+    .then(data => {
+        if (data.path) {
+            window.location.href = data.path;
+        } else {
+            throw new Error('Invalid response from server');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to upload video. Please try again.');
+    });
+}
+</script>
+
+</body>
+</html>

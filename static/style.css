@@ -1,0 +1,404 @@
+/* Optimized Professional Design - Performance Focused */
+:root {
+    --primary-bg: #0f1419;
+    --container-bg: #1a1f2e;
+    --container-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: #a0aec0;
+    --accent-blue: #3b82f6;
+    --accent-red: #ef4444;
+    --accent-green: #10b981;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --border-radius: 12px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.6;
+}
+
+.container {
+    background: var(--container-bg);
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 40px 35px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--container-border);
+    box-shadow: var(--shadow);
+}
+
+h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 30px;
+    letter-spacing: -0.5px;
+}
+
+h3 {
+    font-size: 1.4em;
+    color: var(--text-secondary);
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.upload-btn,
+.webcam-btn,
+.detect-btn,
+.close-preview-btn {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px 24px;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    letter-spacing: 0.3px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.upload-btn {
+    background: var(--accent-red);
+}
+
+.webcam-btn {
+    background: var(--accent-blue);
+}
+
+.detect-btn {
+    background: var(--accent-green);
+}
+
+.close-preview-btn {
+    background: #6b7280;
+}
+
+.upload-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+}
+
+.webcam-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+}
+
+.detect-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+.close-preview-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 114, 128, 0.3);
+}
+
+.preview-box {
+    margin-top: 30px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--container-border);
+}
+
+#preview {
+    width: 100%;
+    max-height: 360px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid var(--container-border);
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: var(--container-border);
+    margin: 35px 0;
+}
+
+/* Video Page Styles */
+.video-container {
+    background: var(--container-bg);
+    width: 95%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--container-border);
+    box-shadow: var(--shadow);
+}
+
+.video-container h2 {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.preview {
+    width: 100%;
+    max-height: 500px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--container-border);
+    box-shadow: var(--shadow);
+    margin-bottom: 25px;
+}
+
+/* Button Group Container */
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+/* SOS Emergency Button */
+.sos-btn {
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+    padding: 18px 30px;
+    background: var(--accent-green);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+}
+
+.sos-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.sos-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.sos-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+    background: #059669;
+}
+
+.sos-btn:active {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.sos-icon {
+    font-size: 1.5em;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.sos-btn:hover .sos-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.sos-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* Close Button */
+.close-btn {
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+    padding: 18px 30px;
+    background: #6b7280;
+    color: var(--text-primary);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+}
+
+.close-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.close-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.close-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(107, 114, 128, 0.5);
+    background: #4b5563;
+}
+
+.close-btn:active {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 4px 15px rgba(107, 114, 128, 0.4);
+}
+
+.close-icon {
+    font-size: 1.5em;
+    display: inline-block;
+    transition: transform 0.3s ease;
+    font-weight: bold;
+}
+
+.close-btn:hover .close-icon {
+    transform: scale(1.2) rotate(90deg);
+}
+
+.close-text {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    .upload-btn,
+    .webcam-btn,
+    .detect-btn,
+    .close-preview-btn {
+        padding: 14px 20px;
+        font-size: 0.95em;
+    }
+
+    .video-container {
+        padding: 20px;
+    }
+
+    .video-container h2 {
+        font-size: 1.5em;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .sos-btn,
+    .close-btn {
+        width: 100%;
+        max-width: 100%;
+        padding: 16px 25px;
+        font-size: 1em;
+    }
+
+    .sos-icon,
+    .close-icon {
+        font-size: 1.3em;
+    }
+}
+
+/* Live Detection Label */
+.label-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(22, 163, 74, 0.85);
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 50px;
+    margin-bottom: 18px;
+    transition: background 0.4s ease;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+#confText {
+    font-size: 0.85em;
+    font-weight: 600;
+    opacity: 0.9;
+    background: rgba(0,0,0,0.2);
+    padding: 2px 10px;
+    border-radius: 20px;
+}
